@@ -1,4 +1,4 @@
-# Put title of your app here
+# JetWeather
 
 <!--- Replace <OWNER> with your Github Username and <REPOSITORY> with the name of your repository. -->
 <!--- You can find both of these in the url bar when you open your repository in github. -->
@@ -6,12 +6,10 @@
 
 
 ## :scroll: Description
-<!--- Describe your app in one or two sentences -->
-
+Developed a weather app for the android developer challenge week 4 2021
 
 ## :bulb: Motivation and Context
-<!--- Optionally point readers to interesting parts of your submission. -->
-<!--- What are you especially proud of? -->
+Inspired from https://dribbble.com/shots/14784828-Weather-forecast-interface
 
 
 ## :camera_flash: Screenshots
