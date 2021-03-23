@@ -15,6 +15,7 @@
  */
 package com.example.androiddevchallenge
 
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +26,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
+var currentIndex = 0
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +37,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 }
 
 // Start building your app here!
 @Composable
 fun MyApp() {
     Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+        WeatherLayout(onWeatherClick = { /*TODO*/ },onDateClick = {})
     }
 }
 
