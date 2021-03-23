@@ -16,7 +16,6 @@
 package com.example.androiddevchallenge
 
 import android.content.res.Resources
-import android.widget.Toast
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -44,7 +43,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.Utils.Utils
@@ -85,6 +83,9 @@ fun WeatherLayout(
 
     var offsetX by remember { mutableStateOf(0f) }
     var offsetY by remember { mutableStateOf(0f) }
+
+    var offsetX1 by remember { mutableStateOf(width.toFloat() - 100f) }
+    var offsetY1 by remember { mutableStateOf(width.toFloat() - 100f) }
 
     val locAnim by animateDpAsState(
         targetValue = imageLoc,
@@ -148,11 +149,25 @@ fun WeatherLayout(
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = "",
-        modifier = Modifier.offset { IntOffset(offsetX.roundToInt(), offsetY.roundToInt()) }.padding(top = 300.dp).size(50.dp).pointerInput(Unit) {
+        modifier = Modifier.offset { IntOffset(offsetX.roundToInt(), offsetY.roundToInt()) }.padding(top = 400.dp).size(50.dp).pointerInput(Unit) {
             detectDragGestures { change, dragAmount ->
                 change.consumeAllChanges()
                 offsetX += dragAmount.x
                 offsetY += dragAmount.y
+            }
+        }
+    )
+
+    Image(
+        painter = getWeatherIcons(weather = weatherType),
+        alignment = Alignment.Center,
+        contentScale = ContentScale.Crop,
+        contentDescription = "",
+        modifier = Modifier.offset { IntOffset(offsetX1.roundToInt(), offsetY1.roundToInt()) }.padding(top = 10.dp).size(50.dp).pointerInput(Unit) {
+            detectDragGestures { change, dragAmount ->
+                change.consumeAllChanges()
+                offsetX1 += dragAmount.x
+                offsetY1 += dragAmount.y
             }
         }
     )
