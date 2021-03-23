@@ -1,20 +1,44 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge.components
 
-import android.content.res.Resources
-import android.util.Log
-import androidx.compose.animation.core.*
-import androidx.compose.foundation.*
+import androidx.compose.animation.core.TweenSpec
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.animateScrollBy
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,13 +49,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.androiddevchallenge.model.WeeklyWeather
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.Utils.Utils
 import com.example.androiddevchallenge.model.Weather
+import com.example.androiddevchallenge.model.WeeklyWeather
 import com.example.androiddevchallenge.model.weatherInfo
-import com.example.androiddevchallenge.model.weeklyWeatherInfo
-import com.example.androiddevchallenge.viewModel.WeatherViewModel
 import com.example.androiddevchallenge.vm
 import com.example.androiddevchallenge.width
 import kotlinx.coroutines.launch
@@ -70,7 +92,6 @@ fun WeeklyWeatherListAdapter(
             )
 
             Text(text = "Bangalore", modifier = modifier.padding(start = 30.dp), color = Color.Black)
-
         }
         LazyRow(
             modifier = modifier,
@@ -81,7 +102,6 @@ fun WeeklyWeatherListAdapter(
             if (weather != null) {
                 items(weather!!) { it ->
                     weatherItem(it, onWeatherClick, anim = imageAnim)
-                    vm.restImageAnim()
                 }
             }
         }
@@ -99,7 +119,8 @@ fun weatherItem(
         modifier = modifier
             .clickable(
                 enabled = false,
-                onClick = { onWeatherClick(weather.dailyWeatherInfo[0].id) })
+                onClick = { onWeatherClick(weather.dailyWeatherInfo[0].id) }
+            )
             .width(width.dp)
             .padding(top = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -119,12 +140,20 @@ fun weatherItem(
             color = Color.White,
             fontSize = 20.sp
         )
-        Text(
-            text = weather.dailyWeatherInfo[0].degree,
-            style = MaterialTheme.typography.h1,
-            modifier = Modifier.padding(top = 8.dp),
-            color = Color.Black,
-        )
+        Row() {
+            Text(
+                text = weather.dailyWeatherInfo[0].degree,
+                style = MaterialTheme.typography.h1,
+                color = Color.Black,
+            )
+            Image(
+                painter = painterResource(R.drawable.dot),
+                alignment = Alignment.Center,
+                contentScale = ContentScale.Crop,
+                contentDescription = "",
+                modifier = Modifier.padding(top = 10.dp).size(10.dp)
+            )
+        }
         Row() {
             Image(
                 painter = painterResource(R.drawable.wind),
@@ -136,7 +165,7 @@ fun weatherItem(
             Text(
                 text = weather.dailyWeatherInfo[0].wind,
                 style = MaterialTheme.typography.h5,
-                modifier = Modifier.padding(end = 20.dp,start = 5.dp),
+                modifier = Modifier.padding(end = 20.dp, start = 5.dp),
                 color = Color.Black
             )
             Image(
@@ -149,13 +178,12 @@ fun weatherItem(
             Text(
                 text = weather.dailyWeatherInfo[0].precipitation.toString(),
                 style = MaterialTheme.typography.h5,
-                modifier = Modifier.padding(end = 20.dp,start = 1.dp),
+                modifier = Modifier.padding(end = 20.dp, start = 1.dp),
                 color = Color.Black
             )
         }
     }
     vm.restImageAnim()
-
 }
 
 @Composable
@@ -173,30 +201,31 @@ fun WeeklyWeatherDatesListAdapter(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         items(dates) { it ->
-            dateItem(date = it.date, onDateClick = {
+            dateItem(
+                date = it.date,
+                onDateClick = {
 
-                coroutineScope.launch {
-                    // Animate scroll to the first item
+                    coroutineScope.launch {
+                        // Animate scroll to the first item
 
-                    weeklyState.animateScrollBy(
-                        Utils().getPixelsFromIndex(dates.indexOf(it)),
-                        animationSpec = TweenSpec(1000)
-                    )
+                        weeklyState.animateScrollBy(
+                            Utils().getPixelsFromIndex(dates.indexOf(it)),
+                            animationSpec = TweenSpec(1000)
+                        )
+                    }
+
+                    vm.getdailyWeatherData(it.date)
+
+                    vm.getWeatherData()
+
+                    vm.setWeatherType(it.dailyWeatherInfo[0].weatherType)
+
+                    vm.setAnim()
                 }
-
-                vm.getdailyWeatherData(it.date)
-
-                vm.getWeatherData()
-
-                vm.setWeatherType(it.dailyWeatherInfo[0].weatherType)
-
-                vm.setAnim()
-
-            })
+            )
         }
     }
 }
-
 
 @Composable
 fun dateItem(
@@ -212,7 +241,6 @@ fun dateItem(
     )
 }
 
-
 @Composable
 fun DayWeatherList(
     dates: List<WeeklyWeather>,
@@ -224,24 +252,13 @@ fun DayWeatherList(
 
     val date by vm.dailyWeatherData.observeAsState()
 
-    val animSpec by vm.animDp.observeAsState(0.dp)
-
-    val anim by animateDpAsState(
-        targetValue = animSpec,
-        spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMedium
-        )
-    )
-
     LazyRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-            items(date?: weatherInfo) { it ->
-                dayWeatherItem(weather = it, onDateClick = {}, anim = anim)
-                vm.resetAnim()
+        items(date ?: weatherInfo) { it ->
+            dayWeatherItem(weather = it, onDateClick = {})
         }
     }
 }
@@ -250,17 +267,14 @@ fun DayWeatherList(
 fun dayWeatherItem(
     weather: Weather,
     onDateClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    anim: Dp
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = Modifier.height(200.dp).width(150.dp)
-            .offset(y = anim)
             .padding(15.dp)
             .background(colorResource(id = R.color.opaque), shape = RoundedCornerShape(20.dp)),
         horizontalAlignment = Alignment.CenterHorizontally
-    )
-    {
+    ) {
         Text(
             text = weather.time,
             style = MaterialTheme.typography.h5,
@@ -274,11 +288,20 @@ fun dayWeatherItem(
             contentDescription = "",
             modifier = Modifier.size(25.dp)
         )
-        Text(
-            text = weather.degree,
-            style = MaterialTheme.typography.h5,
-            modifier = Modifier.padding(20.dp), color = Color.DarkGray
-        )
+        Row() {
+            Text(
+                text = weather.degree,
+                style = MaterialTheme.typography.h5,
+                modifier = Modifier.padding(top = 20.dp), color = Color.DarkGray
+            )
+            Image(
+                painter = painterResource(R.drawable.dot),
+                alignment = Alignment.Center,
+                contentScale = ContentScale.Crop,
+                contentDescription = "",
+                modifier = Modifier.padding(top = 20.dp).size(5.dp)
+            )
+        }
     }
 }
 
@@ -305,4 +328,3 @@ fun getWeatherColor(weather: String): Color {
         else -> colorResource(id = R.color.cloudy)
     }
 }
-
