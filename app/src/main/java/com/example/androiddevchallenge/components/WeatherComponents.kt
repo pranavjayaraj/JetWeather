@@ -219,8 +219,6 @@ fun WeeklyWeatherDatesListAdapter(
                     vm.getWeatherData()
 
                     vm.setWeatherType(it.dailyWeatherInfo[0].weatherType)
-
-                    vm.setAnim()
                 }
             )
         }
@@ -247,8 +245,6 @@ fun DayWeatherList(
     onDateClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-    vm.setAnim()
 
     val date by vm.dailyWeatherData.observeAsState()
 

@@ -16,6 +16,7 @@
 package com.example.androiddevchallenge
 
 import android.content.res.Resources
+import android.widget.Toast
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -43,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.Utils.Utils
@@ -151,8 +153,6 @@ fun WeatherLayout(
                 change.consumeAllChanges()
                 offsetX += dragAmount.x
                 offsetY += dragAmount.y
-                if (dragAmount.x> 50) {
-                }
             }
         }
     )

@@ -28,8 +28,6 @@ class WeatherViewModel {
 
     val dailyWeatherData = MutableLiveData<List<Weather>>()
 
-    val animDp = MutableLiveData<Dp>()
-
     val imageAnimDp = MutableLiveData<Dp>()
 
     val weatherType = MutableLiveData<String>()
@@ -44,14 +42,6 @@ class WeatherViewModel {
 
     fun getdailyWeatherData(date: String) {
         dailyWeatherData.postValue(weeklyWeatherInfo.firstOrNull { it.date == date }?.dailyWeatherInfo)
-    }
-
-    fun setAnim() {
-        animDp.postValue(250.dp)
-    }
-
-    fun resetAnim() {
-        animDp.postValue(0.dp)
     }
 
     fun setImageAnim() {
