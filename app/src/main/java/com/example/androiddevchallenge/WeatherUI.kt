@@ -102,7 +102,7 @@ fun WeatherLayout(
         painter = GetWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
-        contentDescription = "",
+        contentDescription = weatherType,
         modifier = Modifier.padding(top = 100.dp).size(50.dp).offset(locAnim2)
     )
 
@@ -110,7 +110,7 @@ fun WeatherLayout(
         painter = GetWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
-        contentDescription = "",
+        contentDescription = weatherType,
         modifier = Modifier.padding(top = 200.dp).size(50.dp).offset(locAnim1)
     )
 
@@ -118,7 +118,7 @@ fun WeatherLayout(
         painter = GetWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
-        contentDescription = "",
+        contentDescription = weatherType,
         modifier = Modifier.padding(top = 300.dp).size(50.dp).offset(locAnim3)
     )
 
@@ -126,7 +126,7 @@ fun WeatherLayout(
         painter = GetWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
-        contentDescription = "",
+        contentDescription = weatherType,
         modifier = Modifier.offset { IntOffset(offsetX.roundToInt(), offsetY.roundToInt()) }.padding(top = 400.dp).size(50.dp).pointerInput(Unit) {
             detectDragGestures { change, dragAmount ->
                 change.consumeAllChanges()
@@ -140,7 +140,7 @@ fun WeatherLayout(
         painter = GetWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
-        contentDescription = "",
+        contentDescription = weatherType,
         modifier = Modifier.offset { IntOffset(offsetX1.roundToInt(), offsetY1.roundToInt()) }.padding(top = 10.dp).size(50.dp).pointerInput(Unit) {
             detectDragGestures { change, dragAmount ->
                 change.consumeAllChanges()
