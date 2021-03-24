@@ -56,14 +56,11 @@ class WeatherViewModel {
         weatherType.postValue(weather)
     }
 
-    fun setLoc1(dp:Dp)
-    {
+    fun setLoc1(dp: Dp) {
         imageLoc1.postValue(dp)
     }
 
-    fun setLoc2(dp:Dp)
-    {
+    fun setLoc2(dp: Dp) {
         imageLoc2.postValue(dp)
     }
-
 }

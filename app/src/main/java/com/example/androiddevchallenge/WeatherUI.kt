@@ -27,8 +27,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.consumeAllChanges
@@ -37,12 +41,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.Utils.Utils
+import com.example.androiddevchallenge.components.GetLocAnim
+import com.example.androiddevchallenge.components.GetWeatherColor
+import com.example.androiddevchallenge.components.GetWeatherIcons
 import com.example.androiddevchallenge.components.TodaysWeatherList
 import com.example.androiddevchallenge.components.WeeklyWeatherDatesListAdapter
 import com.example.androiddevchallenge.components.WeeklyWeatherListAdapter
-import com.example.androiddevchallenge.components.GetWeatherColor
-import com.example.androiddevchallenge.components.GetWeatherIcons
-import com.example.androiddevchallenge.components.GetLocAnim
 import com.example.androiddevchallenge.model.WeeklyWeather
 import com.example.androiddevchallenge.repository.WeatherRepository
 import com.example.androiddevchallenge.viewModel.WeatherViewModel
@@ -79,11 +83,11 @@ fun WeatherLayout(
     var offsetX1 by remember { mutableStateOf(width.toFloat() - 100f) }
     var offsetY1 by remember { mutableStateOf(width.toFloat() - 100f) }
 
-    val locAnim1 by GetLocAnim(imageLoc1,10000)
+    val locAnim1 by GetLocAnim(imageLoc1, 10000)
 
-    val locAnim2 by GetLocAnim(imageLoc2,12000)
+    val locAnim2 by GetLocAnim(imageLoc2, 12000)
 
-    val locAnim3 by GetLocAnim(imageLoc1,15000)
+    val locAnim3 by GetLocAnim(imageLoc1, 15000)
 
     Column(Modifier.background(bgAnimColor).fillMaxHeight()) {
 
