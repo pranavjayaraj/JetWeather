@@ -78,7 +78,6 @@ fun WeatherLayout(
 
     val imageLoc2 by vm.imageLoc2.observeAsState(width.dp)
 
-
     val locAnim1 by GetLocAnim(imageLoc1, 10000)
 
     val locAnim2 by GetLocAnim(imageLoc2, 12000)
@@ -94,7 +93,7 @@ fun WeatherLayout(
         TodaysWeather(weatherList, onDateClick, modifier)
     }
 
-    floaters(weatherType = weatherType,locAnim1 = locAnim1,locAnim2 = locAnim2,locAnim3 = locAnim3)
+    floaters(weatherType = weatherType, locAnim1 = locAnim1, locAnim2 = locAnim2, locAnim3 = locAnim3)
 
     vm.setLoc1(width.dp)
 
@@ -145,8 +144,7 @@ private fun TodaysWeather(
 }
 
 @Composable
-private fun floaters(weatherType:String,locAnim1: Dp,locAnim2:Dp, locAnim3:Dp)
-{
+private fun floaters(weatherType: String, locAnim1: Dp, locAnim2: Dp, locAnim3: Dp) {
     var offsetX by remember { mutableStateOf(0f) }
     var offsetY by remember { mutableStateOf(0f) }
 
