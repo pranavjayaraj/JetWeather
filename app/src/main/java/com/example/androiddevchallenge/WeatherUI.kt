@@ -95,9 +95,6 @@ fun WeatherLayout(
 
     floaters(weatherType = weatherType, locAnim1 = locAnim1, locAnim2 = locAnim2, locAnim3 = locAnim3)
 
-    vm.setLoc1(width.dp)
-
-    vm.setLoc2((-150).dp)
 }
 
 @Composable
@@ -202,4 +199,8 @@ private fun floaters(weatherType: String, locAnim1: Dp, locAnim2: Dp, locAnim3: 
             }
         }
     )
+
+    vm.setLoc1(width.dp)
+
+    vm.setLoc2((-150).dp)
 }
