@@ -46,7 +46,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.Utils.Utils
-import com.example.androiddevchallenge.components.DayWeatherList
+import com.example.androiddevchallenge.components.TodaysWeatherList
 import com.example.androiddevchallenge.components.WeeklyWeatherDatesListAdapter
 import com.example.androiddevchallenge.components.WeeklyWeatherListAdapter
 import com.example.androiddevchallenge.components.getWeatherColor
@@ -213,7 +213,7 @@ private fun DayWeathers(
     onDateClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    DayWeatherList(
+    TodaysWeatherList(
         dates = dates,
         onDateClick = onDateClick,
         modifier = modifier

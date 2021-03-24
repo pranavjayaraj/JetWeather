@@ -240,7 +240,7 @@ fun dateItem(
 }
 
 @Composable
-fun DayWeatherList(
+fun TodaysWeatherList(
     dates: List<WeeklyWeather>,
     onDateClick: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -254,13 +254,13 @@ fun DayWeatherList(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         items(date ?: weatherInfo) { it ->
-            dayWeatherItem(weather = it, onDateClick = {})
+            TodaysWeatherItem(weather = it, onDateClick = {})
         }
     }
 }
 
 @Composable
-fun dayWeatherItem(
+fun TodaysWeatherItem(
     weather: Weather,
     onDateClick: () -> Unit,
     modifier: Modifier = Modifier
