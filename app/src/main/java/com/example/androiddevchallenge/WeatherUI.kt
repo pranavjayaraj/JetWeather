@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.Utils.Utils
@@ -77,11 +78,6 @@ fun WeatherLayout(
 
     val imageLoc2 by vm.imageLoc2.observeAsState(width.dp)
 
-    var offsetX by remember { mutableStateOf(0f) }
-    var offsetY by remember { mutableStateOf(0f) }
-
-    var offsetX1 by remember { mutableStateOf(width.toFloat() - 100f) }
-    var offsetY1 by remember { mutableStateOf(width.toFloat() - 100f) }
 
     val locAnim1 by GetLocAnim(imageLoc1, 10000)
 
@@ -97,6 +93,65 @@ fun WeatherLayout(
 
         TodaysWeather(weatherList, onDateClick, modifier)
     }
+
+    floaters(weatherType = weatherType,locAnim1 = locAnim1,locAnim2 = locAnim2,locAnim3 = locAnim3)
+
+    vm.setLoc1(width.dp)
+
+    vm.setLoc2((-150).dp)
+}
+
+@Composable
+private fun WeatherNow(
+    weeklyWeather: List<WeeklyWeather>,
+    onWeatherClick: (Long) -> Unit,
+    modifier: Modifier = Modifier,
+    state: LazyListState
+) {
+    WeeklyWeatherListAdapter(
+        weeklyWeather = weeklyWeather,
+        onWeatherClick = onWeatherClick,
+        modifier = modifier,
+        state = state
+    )
+}
+
+@Composable
+private fun WeekDates(
+    dates: List<WeeklyWeather>,
+    onDateClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    state: LazyListState
+) {
+    WeeklyWeatherDatesListAdapter(
+        dates = dates,
+        onDateClick = onDateClick,
+        modifier = modifier,
+        weeklyState = state
+    )
+}
+
+@Composable
+private fun TodaysWeather(
+    dates: List<WeeklyWeather>,
+    onDateClick: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    TodaysWeatherList(
+        dates = dates,
+        onDateClick = onDateClick,
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun floaters(weatherType:String,locAnim1: Dp,locAnim2:Dp, locAnim3:Dp)
+{
+    var offsetX by remember { mutableStateOf(0f) }
+    var offsetY by remember { mutableStateOf(0f) }
+
+    var offsetX1 by remember { mutableStateOf(width.toFloat() - 100f) }
+    var offsetY1 by remember { mutableStateOf(width.toFloat() - 100f) }
 
     Image(
         painter = GetWeatherIcons(weather = weatherType),
@@ -148,52 +203,5 @@ fun WeatherLayout(
                 offsetY1 += dragAmount.y
             }
         }
-    )
-
-    vm.setLoc1(width.dp)
-
-    vm.setLoc2((-150).dp)
-}
-
-@Composable
-private fun WeatherNow(
-    weeklyWeather: List<WeeklyWeather>,
-    onWeatherClick: (Long) -> Unit,
-    modifier: Modifier = Modifier,
-    state: LazyListState
-) {
-    WeeklyWeatherListAdapter(
-        weeklyWeather = weeklyWeather,
-        onWeatherClick = onWeatherClick,
-        modifier = modifier,
-        state = state
-    )
-}
-
-@Composable
-private fun WeekDates(
-    dates: List<WeeklyWeather>,
-    onDateClick: (String) -> Unit,
-    modifier: Modifier = Modifier,
-    state: LazyListState
-) {
-    WeeklyWeatherDatesListAdapter(
-        dates = dates,
-        onDateClick = onDateClick,
-        modifier = modifier,
-        weeklyState = state
-    )
-}
-
-@Composable
-private fun TodaysWeather(
-    dates: List<WeeklyWeather>,
-    onDateClick: (String) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    TodaysWeatherList(
-        dates = dates,
-        onDateClick = onDateClick,
-        modifier = modifier
     )
 }
