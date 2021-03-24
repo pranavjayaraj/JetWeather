@@ -46,6 +46,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -91,7 +93,7 @@ fun WeeklyWeatherListAdapter(
                 modifier = Modifier.size(30.dp).offset(20.dp)
             )
 
-            Text(text = "Bangalore", modifier = modifier.padding(start = 30.dp), color = Color.Black)
+            Text(text = "Bangalore", modifier = modifier.padding(start = 30.dp).semantics { heading() }, color = Color.Black)
         }
         LazyRow(
             modifier = modifier,
@@ -122,7 +124,8 @@ fun weatherItem(
                 onClick = { onWeatherClick(weather.dailyWeatherInfo[0].id) }
             )
             .width(width.dp)
-            .padding(top = 30.dp),
+            .padding(top = 30.dp)
+            .semantics(mergeDescendants = true){},
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -130,7 +133,7 @@ fun weatherItem(
             painter = painterResource(weather.dailyWeatherInfo[0].drawable),
             alignment = Alignment.Center,
             contentScale = ContentScale.Crop,
-            contentDescription = "",
+            contentDescription = weather.dailyWeatherInfo[0].weatherType,
             modifier = Modifier.size(anim)
         )
         Text(
@@ -150,7 +153,7 @@ fun weatherItem(
                 painter = painterResource(R.drawable.dot),
                 alignment = Alignment.Center,
                 contentScale = ContentScale.Crop,
-                contentDescription = "",
+                contentDescription = "Degree",
                 modifier = Modifier.padding(top = 10.dp).size(10.dp)
             )
         }
@@ -159,7 +162,7 @@ fun weatherItem(
                 painter = painterResource(R.drawable.wind),
                 alignment = Alignment.Center,
                 contentScale = ContentScale.Crop,
-                contentDescription = "",
+                contentDescription = "Wind",
                 modifier = Modifier.padding(top = 8.dp).size(20.dp)
             )
             Text(
@@ -172,7 +175,7 @@ fun weatherItem(
                 painter = painterResource(R.drawable.drop),
                 alignment = Alignment.Center,
                 contentScale = ContentScale.Crop,
-                contentDescription = "",
+                contentDescription = "Precipitation",
                 modifier = Modifier.padding(top = 8.dp).size(20.dp)
             )
             Text(
@@ -268,7 +271,7 @@ fun TodaysWeatherItem(
     Column(
         modifier = Modifier.height(200.dp).width(150.dp)
             .padding(15.dp)
-            .background(colorResource(id = R.color.opaque), shape = RoundedCornerShape(20.dp)),
+            .background(colorResource(id = R.color.opaque), shape = RoundedCornerShape(20.dp)).semantics(mergeDescendants = true){},
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -281,7 +284,7 @@ fun TodaysWeatherItem(
             painter = getWeatherIcons(weather = weather.weatherType),
             alignment = Alignment.Center,
             contentScale = ContentScale.Crop,
-            contentDescription = "",
+            contentDescription = weather.weatherType,
             modifier = Modifier.size(25.dp)
         )
         Row() {
