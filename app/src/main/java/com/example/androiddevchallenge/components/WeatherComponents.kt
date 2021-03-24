@@ -15,8 +15,7 @@
  */
 package com.example.androiddevchallenge.components
 
-import androidx.compose.animation.core.TweenSpec
-import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,6 +35,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
@@ -326,4 +326,16 @@ fun getWeatherColor(weather: String): Color {
         "Hurricane" -> colorResource(id = R.color.hurricane)
         else -> colorResource(id = R.color.cloudy)
     }
+}
+
+@Composable
+fun GetLocAnim(loc:Dp,duration:Int): State<Dp>
+{
+    return animateDpAsState(
+        targetValue = loc,
+        animationSpec = infiniteRepeatable(
+            animation = tween(duration, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart,
+        )
+    )
 }

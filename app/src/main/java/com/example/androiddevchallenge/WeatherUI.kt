@@ -17,11 +17,6 @@ package com.example.androiddevchallenge
 
 import android.content.res.Resources
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -32,12 +27,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.consumeAllChanges
@@ -51,6 +42,7 @@ import com.example.androiddevchallenge.components.WeeklyWeatherDatesListAdapter
 import com.example.androiddevchallenge.components.WeeklyWeatherListAdapter
 import com.example.androiddevchallenge.components.getWeatherColor
 import com.example.androiddevchallenge.components.getWeatherIcons
+import com.example.androiddevchallenge.components.GetLocAnim
 import com.example.androiddevchallenge.model.WeeklyWeather
 import com.example.androiddevchallenge.repository.WeatherRepository
 import com.example.androiddevchallenge.viewModel.WeatherViewModel
@@ -77,7 +69,7 @@ fun WeatherLayout(
         Utils().getAnimSpec(weatherType)
     )
 
-    val imageLoc1 by vm.imageLoc.observeAsState((-150).dp)
+    val imageLoc1 by vm.imageLoc1.observeAsState((-150).dp)
 
     val imageLoc2 by vm.imageLoc2.observeAsState(width.dp)
 
@@ -87,29 +79,11 @@ fun WeatherLayout(
     var offsetX1 by remember { mutableStateOf(width.toFloat() - 100f) }
     var offsetY1 by remember { mutableStateOf(width.toFloat() - 100f) }
 
-    val locAnim by animateDpAsState(
-        targetValue = imageLoc1,
-        animationSpec = infiniteRepeatable(
-            animation = tween(10000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart,
-        )
-    )
+    val locAnim1 by GetLocAnim(imageLoc1,10000)
 
-    val locAnim2 by animateDpAsState(
-        targetValue = imageLoc2,
-        animationSpec = infiniteRepeatable(
-            animation = tween(12000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart,
-        )
-    )
+    val locAnim2 by GetLocAnim(imageLoc2,12000)
 
-    val locAnim3 by animateDpAsState(
-        targetValue = imageLoc1,
-        animationSpec = infiniteRepeatable(
-            animation = tween(15000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart,
-        )
-    )
+    val locAnim3 by GetLocAnim(imageLoc1,15000)
 
     Column(Modifier.background(bgAnimColor).fillMaxHeight()) {
 
@@ -133,7 +107,7 @@ fun WeatherLayout(
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = "",
-        modifier = Modifier.padding(top = 200.dp).size(50.dp).offset(locAnim)
+        modifier = Modifier.padding(top = 200.dp).size(50.dp).offset(locAnim1)
     )
 
     Image(
@@ -172,9 +146,9 @@ fun WeatherLayout(
         }
     )
 
-    vm.imageLoc.postValue(width.dp)
+    vm.setLoc1(width.dp)
 
-    vm.imageLoc2.postValue((-150).dp)
+    vm.setLoc2((-150).dp)
 }
 
 @Composable

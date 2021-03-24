@@ -32,7 +32,7 @@ class WeatherViewModel {
 
     val weatherType = MutableLiveData<String>()
 
-    val imageLoc = MutableLiveData<Dp>()
+    val imageLoc1 = MutableLiveData<Dp>()
 
     val imageLoc2 = MutableLiveData<Dp>()
 
@@ -55,4 +55,15 @@ class WeatherViewModel {
     fun setWeatherType(weather: String) {
         weatherType.postValue(weather)
     }
+
+    fun setLoc1(dp:Dp)
+    {
+        imageLoc1.postValue(dp)
+    }
+
+    fun setLoc2(dp:Dp)
+    {
+        imageLoc2.postValue(dp)
+    }
+
 }
