@@ -113,11 +113,11 @@ fun WeatherLayout(
 
     Column(Modifier.background(bgAnimColor).fillMaxHeight()) {
 
-        Feed(weatherList, onWeatherClick, modifier, weeklylistState)
+        WeatherNow(weatherList, onWeatherClick, modifier, weeklylistState)
 
-        Dates(weatherList, onDateClick, modifier, weeklylistState)
+        WeekDates(weatherList, onDateClick, modifier, weeklylistState)
 
-        DayWeathers(weatherList, onDateClick, modifier)
+        TodaysWeather(weatherList, onDateClick, modifier)
     }
 
     Image(
@@ -178,7 +178,7 @@ fun WeatherLayout(
 }
 
 @Composable
-private fun Feed(
+private fun WeatherNow(
     weeklyWeather: List<WeeklyWeather>,
     onWeatherClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
@@ -193,7 +193,7 @@ private fun Feed(
 }
 
 @Composable
-private fun Dates(
+private fun WeekDates(
     dates: List<WeeklyWeather>,
     onDateClick: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -208,7 +208,7 @@ private fun Dates(
 }
 
 @Composable
-private fun DayWeathers(
+private fun TodaysWeather(
     dates: List<WeeklyWeather>,
     onDateClick: (String) -> Unit,
     modifier: Modifier = Modifier

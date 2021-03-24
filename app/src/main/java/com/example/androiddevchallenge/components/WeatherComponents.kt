@@ -125,7 +125,7 @@ fun weatherItem(
             )
             .width(width.dp)
             .padding(top = 30.dp)
-            .semantics(mergeDescendants = true){},
+            .semantics(mergeDescendants = true) {},
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -271,7 +271,7 @@ fun TodaysWeatherItem(
     Column(
         modifier = Modifier.height(200.dp).width(150.dp)
             .padding(15.dp)
-            .background(colorResource(id = R.color.opaque), shape = RoundedCornerShape(20.dp)).semantics(mergeDescendants = true){},
+            .background(colorResource(id = R.color.opaque), shape = RoundedCornerShape(20.dp)).semantics(mergeDescendants = true) {},
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
