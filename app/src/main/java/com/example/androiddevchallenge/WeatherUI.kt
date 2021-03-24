@@ -77,7 +77,7 @@ fun WeatherLayout(
         Utils().getAnimSpec(weatherType)
     )
 
-    val imageLoc by vm.imageLoc.observeAsState((-150).dp)
+    val imageLoc1 by vm.imageLoc.observeAsState((-150).dp)
 
     val imageLoc2 by vm.imageLoc2.observeAsState(width.dp)
 
@@ -88,7 +88,7 @@ fun WeatherLayout(
     var offsetY1 by remember { mutableStateOf(width.toFloat() - 100f) }
 
     val locAnim by animateDpAsState(
-        targetValue = imageLoc,
+        targetValue = imageLoc1,
         animationSpec = infiniteRepeatable(
             animation = tween(10000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart,
@@ -104,7 +104,7 @@ fun WeatherLayout(
     )
 
     val locAnim3 by animateDpAsState(
-        targetValue = imageLoc,
+        targetValue = imageLoc1,
         animationSpec = infiniteRepeatable(
             animation = tween(15000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart,
