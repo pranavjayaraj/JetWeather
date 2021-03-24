@@ -292,7 +292,7 @@ fun TodaysWeatherItem(
             fontSize = 16.sp
         )
         Image(
-            painter = GetWeatherIcons(weather = weather.weatherType),
+            painter = getWeatherIcons(weather = weather.weatherType),
             alignment = Alignment.Center,
             contentScale = ContentScale.Crop,
             contentDescription = weather.weatherType,
@@ -316,7 +316,7 @@ fun TodaysWeatherItem(
 }
 
 @Composable
-fun GetWeatherIcons(weather: String): Painter {
+fun getWeatherIcons(weather: String): Painter {
     return when (weather) {
         "Thunder" -> painterResource(id = R.drawable.thunderstorm_white)
         "Cool" -> painterResource(id = R.drawable.snowflake_white)
@@ -328,7 +328,7 @@ fun GetWeatherIcons(weather: String): Painter {
 }
 
 @Composable
-fun GetWeatherColor(weather: String): Color {
+fun getWeatherColor(weather: String): Color {
     return when (weather) {
         "Thunder" -> colorResource(id = R.color.cloudy)
         "Cool" -> colorResource(id = R.color.cool)
@@ -340,7 +340,7 @@ fun GetWeatherColor(weather: String): Color {
 }
 
 @Composable
-fun GetLocAnim(loc: Dp, duration: Int): State<Dp> {
+fun getLocAnim(loc: Dp, duration: Int): State<Dp> {
     return animateDpAsState(
         targetValue = loc,
         animationSpec = infiniteRepeatable(

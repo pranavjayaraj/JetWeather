@@ -42,12 +42,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.Utils.Utils
-import com.example.androiddevchallenge.components.GetLocAnim
-import com.example.androiddevchallenge.components.GetWeatherColor
-import com.example.androiddevchallenge.components.GetWeatherIcons
 import com.example.androiddevchallenge.components.TodaysWeatherList
 import com.example.androiddevchallenge.components.WeeklyWeatherDatesListAdapter
 import com.example.androiddevchallenge.components.WeeklyWeatherListAdapter
+import com.example.androiddevchallenge.components.getLocAnim
+import com.example.androiddevchallenge.components.getWeatherColor
+import com.example.androiddevchallenge.components.getWeatherIcons
 import com.example.androiddevchallenge.model.WeeklyWeather
 import com.example.androiddevchallenge.repository.WeatherRepository
 import com.example.androiddevchallenge.viewModel.WeatherViewModel
@@ -70,7 +70,7 @@ fun WeatherLayout(
     val weatherType by vm.weatherType.observeAsState("Thunder")
 
     val bgAnimColor by animateColorAsState(
-        GetWeatherColor(weather = weatherType),
+        getWeatherColor(weather = weatherType),
         Utils().GetAnimSpec(weatherType)
     )
 
@@ -78,11 +78,11 @@ fun WeatherLayout(
 
     val imageLoc2 by vm.imageLoc2.observeAsState(width.dp)
 
-    val locAnim1 by GetLocAnim(imageLoc1, 10000)
+    val locAnim1 by getLocAnim(imageLoc1, 10000)
 
-    val locAnim2 by GetLocAnim(imageLoc2, 12000)
+    val locAnim2 by getLocAnim(imageLoc2, 12000)
 
-    val locAnim3 by GetLocAnim(imageLoc1, 15000)
+    val locAnim3 by getLocAnim(imageLoc1, 15000)
 
     Column(Modifier.background(bgAnimColor).fillMaxHeight()) {
 
@@ -93,8 +93,7 @@ fun WeatherLayout(
         TodaysWeather(weatherList, onDateClick, modifier)
     }
 
-    floaters(weatherType = weatherType, locAnim1 = locAnim1, locAnim2 = locAnim2, locAnim3 = locAnim3)
-
+    Floaters(weatherType = weatherType, locAnim1 = locAnim1, locAnim2 = locAnim2, locAnim3 = locAnim3)
 }
 
 @Composable
@@ -111,7 +110,7 @@ private fun WeatherNow(
         state = state
     )
 }
-
+//
 @Composable
 private fun WeekDates(
     dates: List<WeeklyWeather>,
@@ -141,7 +140,7 @@ private fun TodaysWeather(
 }
 
 @Composable
-private fun floaters(weatherType: String, locAnim1: Dp, locAnim2: Dp, locAnim3: Dp) {
+private fun Floaters(weatherType: String, locAnim1: Dp, locAnim2: Dp, locAnim3: Dp) {
     var offsetX by remember { mutableStateOf(0f) }
     var offsetY by remember { mutableStateOf(0f) }
 
@@ -149,7 +148,7 @@ private fun floaters(weatherType: String, locAnim1: Dp, locAnim2: Dp, locAnim3: 
     var offsetY1 by remember { mutableStateOf(width.toFloat() - 100f) }
 
     Image(
-        painter = GetWeatherIcons(weather = weatherType),
+        painter = getWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = weatherType,
@@ -157,7 +156,7 @@ private fun floaters(weatherType: String, locAnim1: Dp, locAnim2: Dp, locAnim3: 
     )
 
     Image(
-        painter = GetWeatherIcons(weather = weatherType),
+        painter = getWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = weatherType,
@@ -165,7 +164,7 @@ private fun floaters(weatherType: String, locAnim1: Dp, locAnim2: Dp, locAnim3: 
     )
 
     Image(
-        painter = GetWeatherIcons(weather = weatherType),
+        painter = getWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = weatherType,
@@ -173,7 +172,7 @@ private fun floaters(weatherType: String, locAnim1: Dp, locAnim2: Dp, locAnim3: 
     )
 
     Image(
-        painter = GetWeatherIcons(weather = weatherType),
+        painter = getWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = weatherType,
@@ -187,7 +186,7 @@ private fun floaters(weatherType: String, locAnim1: Dp, locAnim2: Dp, locAnim3: 
     )
 
     Image(
-        painter = GetWeatherIcons(weather = weatherType),
+        painter = getWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = weatherType,
