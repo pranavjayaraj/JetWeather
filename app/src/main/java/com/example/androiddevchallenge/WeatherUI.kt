@@ -40,8 +40,8 @@ import com.example.androiddevchallenge.Utils.Utils
 import com.example.androiddevchallenge.components.TodaysWeatherList
 import com.example.androiddevchallenge.components.WeeklyWeatherDatesListAdapter
 import com.example.androiddevchallenge.components.WeeklyWeatherListAdapter
-import com.example.androiddevchallenge.components.getWeatherColor
-import com.example.androiddevchallenge.components.getWeatherIcons
+import com.example.androiddevchallenge.components.GetWeatherColor
+import com.example.androiddevchallenge.components.GetWeatherIcons
 import com.example.androiddevchallenge.components.GetLocAnim
 import com.example.androiddevchallenge.model.WeeklyWeather
 import com.example.androiddevchallenge.repository.WeatherRepository
@@ -65,8 +65,8 @@ fun WeatherLayout(
     val weatherType by vm.weatherType.observeAsState("Thunder")
 
     val bgAnimColor by animateColorAsState(
-        getWeatherColor(weather = weatherType),
-        Utils().getAnimSpec(weatherType)
+        GetWeatherColor(weather = weatherType),
+        Utils().GetAnimSpec(weatherType)
     )
 
     val imageLoc1 by vm.imageLoc1.observeAsState((-150).dp)
@@ -95,7 +95,7 @@ fun WeatherLayout(
     }
 
     Image(
-        painter = getWeatherIcons(weather = weatherType),
+        painter = GetWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = "",
@@ -103,7 +103,7 @@ fun WeatherLayout(
     )
 
     Image(
-        painter = getWeatherIcons(weather = weatherType),
+        painter = GetWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = "",
@@ -111,7 +111,7 @@ fun WeatherLayout(
     )
 
     Image(
-        painter = getWeatherIcons(weather = weatherType),
+        painter = GetWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = "",
@@ -119,7 +119,7 @@ fun WeatherLayout(
     )
 
     Image(
-        painter = getWeatherIcons(weather = weatherType),
+        painter = GetWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = "",
@@ -133,7 +133,7 @@ fun WeatherLayout(
     )
 
     Image(
-        painter = getWeatherIcons(weather = weatherType),
+        painter = GetWeatherIcons(weather = weatherType),
         alignment = Alignment.Center,
         contentScale = ContentScale.Crop,
         contentDescription = "",

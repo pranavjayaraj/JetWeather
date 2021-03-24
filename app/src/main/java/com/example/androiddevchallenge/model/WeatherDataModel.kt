@@ -33,8 +33,6 @@ data class Weather(
 @Immutable
 data class WeeklyWeather(val date: String, val dailyWeatherInfo: List<Weather>)
 
-data class WeeklyDates(val date: String)
-
 val weatherInfo = listOf(
     Weather(
         id = 1,

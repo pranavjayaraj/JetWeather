@@ -29,7 +29,7 @@ import com.example.androiddevchallenge.currentIndex
 
 class Utils {
 
-    fun getPixelsFromIndex(index: Int): Float {
+    fun GetPixelsFromIndex(index: Int): Float {
         var returnVal = 0f
         if (currentIndex < index) {
             returnVal =
@@ -42,7 +42,7 @@ class Utils {
         return returnVal
     }
 
-    fun getAnimSpec(spec: String): AnimationSpec<Color> {
+    fun GetAnimSpec(spec: String): AnimationSpec<Color> {
 
         return when (spec) {
             "Thunder" -> spring(

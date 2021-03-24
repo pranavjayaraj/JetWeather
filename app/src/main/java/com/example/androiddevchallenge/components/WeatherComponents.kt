@@ -61,6 +61,7 @@ import com.example.androiddevchallenge.width
 import kotlinx.coroutines.launch
 
 var state = false
+
 @Composable
 fun WeeklyWeatherListAdapter(
     weeklyWeather: List<WeeklyWeather>,
@@ -93,7 +94,11 @@ fun WeeklyWeatherListAdapter(
                 modifier = Modifier.size(30.dp).offset(20.dp)
             )
 
-            Text(text = "Bangalore", modifier = modifier.padding(start = 30.dp).semantics { heading() }, color = Color.Black)
+            Text(
+                text = "Bangalore",
+                modifier = modifier.padding(start = 30.dp).semantics { heading() },
+                color = Color.Black
+            )
         }
         LazyRow(
             modifier = modifier,
@@ -103,7 +108,7 @@ fun WeeklyWeatherListAdapter(
         ) {
             if (weather != null) {
                 items(weather!!) { it ->
-                    weatherItem(it, onWeatherClick, anim = imageAnim)
+                    WeatherItem(it, onWeatherClick, anim = imageAnim)
                 }
             }
         }
@@ -111,7 +116,7 @@ fun WeeklyWeatherListAdapter(
 }
 
 @Composable
-fun weatherItem(
+fun WeatherItem(
     weather: WeeklyWeather,
     onWeatherClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
@@ -204,7 +209,7 @@ fun WeeklyWeatherDatesListAdapter(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         items(dates) { it ->
-            dateItem(
+            DateItem(
                 date = it.date,
                 onDateClick = {
 
@@ -212,7 +217,7 @@ fun WeeklyWeatherDatesListAdapter(
                         // Animate scroll to the first item
 
                         weeklyState.animateScrollBy(
-                            Utils().getPixelsFromIndex(dates.indexOf(it)),
+                            Utils().GetPixelsFromIndex(dates.indexOf(it)),
                             animationSpec = TweenSpec(1000)
                         )
                     }
@@ -229,7 +234,7 @@ fun WeeklyWeatherDatesListAdapter(
 }
 
 @Composable
-fun dateItem(
+fun DateItem(
     date: String,
     onDateClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -271,7 +276,8 @@ fun TodaysWeatherItem(
     Column(
         modifier = Modifier.height(200.dp).width(150.dp)
             .padding(15.dp)
-            .background(colorResource(id = R.color.opaque), shape = RoundedCornerShape(20.dp)).semantics(mergeDescendants = true) {},
+            .background(colorResource(id = R.color.opaque), shape = RoundedCornerShape(20.dp))
+            .semantics(mergeDescendants = true) {},
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -281,7 +287,7 @@ fun TodaysWeatherItem(
             fontSize = 16.sp
         )
         Image(
-            painter = getWeatherIcons(weather = weather.weatherType),
+            painter = GetWeatherIcons(weather = weather.weatherType),
             alignment = Alignment.Center,
             contentScale = ContentScale.Crop,
             contentDescription = weather.weatherType,
@@ -305,7 +311,7 @@ fun TodaysWeatherItem(
 }
 
 @Composable
-fun getWeatherIcons(weather: String): Painter {
+fun GetWeatherIcons(weather: String): Painter {
     return when (weather) {
         "Thunder" -> painterResource(id = R.drawable.thunderstorm_white)
         "Cool" -> painterResource(id = R.drawable.snowflake_white)
@@ -317,7 +323,7 @@ fun getWeatherIcons(weather: String): Painter {
 }
 
 @Composable
-fun getWeatherColor(weather: String): Color {
+fun GetWeatherColor(weather: String): Color {
     return when (weather) {
         "Thunder" -> colorResource(id = R.color.cloudy)
         "Cool" -> colorResource(id = R.color.cool)
@@ -329,8 +335,7 @@ fun getWeatherColor(weather: String): Color {
 }
 
 @Composable
-fun GetLocAnim(loc:Dp,duration:Int): State<Dp>
-{
+fun GetLocAnim(loc: Dp, duration: Int): State<Dp> {
     return animateDpAsState(
         targetValue = loc,
         animationSpec = infiniteRepeatable(
